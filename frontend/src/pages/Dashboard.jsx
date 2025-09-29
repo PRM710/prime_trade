@@ -63,11 +63,16 @@ export default function Dashboard() {
     fetchUsers();
   };
 
-  const deleteUser = async (id) => {
+const deleteUser = async (id) => {
+  try {
     const res = await API.delete(`/auth/users/${id}`);
     alert(res.data.message);
     fetchUsers();
-  };
+  } catch (err) {
+    alert(err.response?.data?.message || "Delete failed");
+  }
+};
+
 
   const handleLogout = () => {
     localStorage.clear();
