@@ -1,61 +1,65 @@
 import express from "express";
 import Task from "../models/Task.js";
-import { protect, adminOnly } from "../middleware/auth.js";
+import { protect } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// ✅ Create task (user can only for self, admin/superadmin for anyone)
-router.post("/", protect, async (req, res) => {
-  let owner = req.user._id;
-  if ((req.user.role === "admin" || req.user.role === "superadmin") && req.body.user) {
-    owner = req.body.user; // allow admin to create task for another user
-  }
-  const task = await Task.create({ ...req.body, user: owner });
-  res.status(201).json(task);
-});
-
-// ✅ Get tasks
+// GET tasks
 router.get("/", protect, async (req, res) => {
-  if (req.user.role === "admin" || req.user.role === "superadmin") {
-    const tasks = await Task.find().populate("user", "email role");
-    return res.json(tasks);
+  try {
+    const { user } = req.query;
+    let query = {};
+
+    if (req.user.role === "user") {
+      query.user = req.user._id;
+    } else if (user) {
+      query.user = user;
+    }
+
+    const tasks = await Task.find(query);
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-  const tasks = await Task.find({ user: req.user._id });
-  res.json(tasks);
 });
 
-// ✅ Update task
-router.put("/:id", protect, async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  if (!task) return res.status(404).json({ message: "Task not found" });
+// CREATE task
+router.post("/", protect, async (req, res) => {
+  try {
+    const { title, user } = req.body;
 
-  if (
-    task.user.toString() !== req.user._id.toString() &&
-    req.user.role !== "admin" &&
-    req.user.role !== "superadmin"
-  ) {
-    return res.status(403).json({ message: "Not authorized" });
+    let taskUser;
+    if (req.user.role === "user") {
+      taskUser = req.user._id;
+    } else {
+      taskUser = user || req.user._id;
+    }
+
+    const task = await Task.create({ title, user: taskUser });
+    res.status(201).json(task);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-
-  const updated = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(updated);
 });
 
-// ✅ Delete task
+// DELETE task
 router.delete("/:id", protect, async (req, res) => {
-  const task = await Task.findById(req.params.id);
-  if (!task) return res.status(404).json({ message: "Task not found" });
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) return res.status(404).json({ message: "Task not found" });
 
-  if (
-    task.user.toString() !== req.user._id.toString() &&
-    req.user.role !== "admin" &&
-    req.user.role !== "superadmin"
-  ) {
-    return res.status(403).json({ message: "Not authorized" });
+    if (
+      req.user.role === "user" &&
+      task.user.toString() !== req.user._id.toString()
+    ) {
+      return res.status(403).json({ message: "Not allowed" });
+    }
+
+    await task.deleteOne();
+    res.json({ message: "Task deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-
-  await task.deleteOne();
-  res.json({ message: "Task deleted" });
 });
 
 export default router;
