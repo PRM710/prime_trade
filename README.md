@@ -6,6 +6,12 @@ Here is the **demo link** for the deployed project:
 
 ✅ It’s fully working — you can try registering, logging in, creating tasks, and testing role-based features.
 
+🔑 **Test Credentials (Superadmin):**  
+- Email: `Testing@gmail.com`  
+- Password: `123456789`  
+
+⚠️ Note: Every user listed in the "Users" section also has the **same default password** `123456789`.
+
 ---
 
 ## ⚙️ Tech Stack
@@ -135,6 +141,14 @@ This will run both backend and frontend together.
 - **CRUD actions** fully implemented for the Task entity.  
 
 ---
+
+✅ I have implemented all the requirements from the assignment:
+- Secure backend APIs with **JWT + bcrypt**  
+- **Role-based access control** (User / Admin / Superadmin)  
+- CRUD APIs for **Tasks** entity  
+- Proper error handling & success messages  
+- **React frontend** to interact with the APIs  
+- **Docker setup** for backend & frontend deployment  
 
 ## 🏁 Demo Links
 - 🌐 Frontend: [https://prime-trade-six.vercel.app/](https://prime-trade-six.vercel.app/)  
