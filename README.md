@@ -36,8 +36,8 @@ Here is the **demo link** for the deployed project:
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/PRM710/prime_trade.git
-cd https://github.com/PRM710/prime_trade.git
+git clone <your-repo-url>
+cd <your-repo-folder>
 ```
 
 ---
@@ -49,7 +49,7 @@ cd backend
 
 Create a `.env` file inside `backend/`:
 ```env
-MONGO_URI=<your-MongoDB-Atlas-cluster>
+MONGO_URI=mongodb+srv://<your-user>:<your-password>@cluster.mongodb.net/prime
 JWT_SECRET=supersecret
 PORT=5000
 ```
@@ -69,6 +69,15 @@ Backend will run at: [http://localhost:5000](http://localhost:5000)
 ### 3️⃣ Frontend Setup
 ```bash
 cd frontend
+```
+
+Create a `.env` file inside `frontend/`:
+```env
+# For local development (backend running locally)
+VITE_API_URL=http://localhost:5000/api/v1
+
+# Or, to use deployed backend
+VITE_API_URL=https://prime-trade.onrender.com/api/v1
 ```
 
 Install dependencies:
