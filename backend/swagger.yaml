@@ -4,7 +4,8 @@ info:
   version: 1.0.0
   description: API documentation for Auth & Task CRUD
 servers:
-  - url: http://localhost:5000/api/v1
+  - url: https://prime-trade.onrender.com/api/v1   # Production (Render)
+  - url: http://localhost:5000/api/v1              # Development (Local)
 
 paths:
   /auth/register:
