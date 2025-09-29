@@ -1,8 +1,9 @@
 import axios from "axios";
 
-// Pick baseURL from Vercel env (prod) OR fallback to localhost (dev)
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1",
+  baseURL: import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api/v1`   // production
+    : "http://localhost:5000/api/v1",            // local dev
 });
 
 API.interceptors.request.use((config) => {
