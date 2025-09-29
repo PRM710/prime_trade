@@ -97,12 +97,14 @@ router.delete("/users/:id", protect, adminOnly, async (req, res) => {
   if (user.role === "superadmin") {
     return res.status(403).json({ message: "Cannot delete superadmin" });
   }
+
   if (req.user.role === "admin" && user.role === "admin") {
-    return res.status(403).json({ message: "Admins cannot delete other admins" });
+    return res.status(403).json({ message: "You are on the same level!" });
   }
 
   await user.deleteOne();
   res.json({ message: `${user.email} deleted` });
 });
+
 
 export default router;
