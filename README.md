@@ -49,7 +49,7 @@ cd backend
 
 Create a `.env` file inside `backend/`:
 ```env
-MONGO_URI=mongodb+srv://prakashprm710_db_user:cM8V7yFVPpuJb9Mw@prime.aahea1k.mongodb.net/?retryWrites=true&w=majority&appName=prime
+MONGO_URI=<your-MongoDB-Atlas-cluster>
 JWT_SECRET=supersecret
 PORT=5000
 ```
