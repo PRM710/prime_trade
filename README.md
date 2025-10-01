@@ -42,8 +42,8 @@ Here is the **demo link** for the deployed project:
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone https://github.com/PRM710/prime_trade.git
+cd prime_trade
 ```
 
 ---
