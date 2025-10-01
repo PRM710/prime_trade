@@ -1,8 +1,12 @@
 # 📌 Prime Trade Assignment – Backend + Frontend
 
-Here is the **demo link** for the deployed project:  
-👉 **Frontend (Vercel):** [https://prime-trade-six.vercel.app/](https://prime-trade-six.vercel.app/)  
-👉 **Backend (Render):** [https://prime-trade.onrender.com](https://prime-trade.onrender.com)  
+Here is the demo link for the deployed project:
+
+👉 Frontend (Vercel): https://prime-trade-six.vercel.app/
+
+👉 Backend (Render): https://prime-trade.onrender.com
+
+⚠️ Please wait at least 30 seconds ⏳ after clicking Login, as the backend (hosted on Render free tier) may take some time to wake up. If it fails initially, kindly retry 🔄.
 
 ✅ It’s fully working — you can try registering, logging in, creating tasks, and testing role-based features.
 
